@@ -1,0 +1,8 @@
+extends layout
+
+block content
+      each meme in memes
+        -var url = meme.url
+        .meme
+        img(src=url)
+        p=meme.message
