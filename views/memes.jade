@@ -4,5 +4,9 @@ block content
       each meme in memes
         -var url = meme.url
         .meme
-        img(src=url)
+        img(
+        src=url
+        data-id=meme.id
+        )
         p=meme.message
+        include message_form.jade

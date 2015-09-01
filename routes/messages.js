@@ -31,6 +31,7 @@ router.post('/', function(req, res, next) {
                 }
                 else{
                     console.log("Wrote Data!");
+                    res.json(id + " " + message);
                 }
             });
         }
@@ -53,7 +54,6 @@ router.post('/', function(req, res, next) {
     //
     //console.log(memes);
     //res.render('memes.jade',{"memes": memesArray});
-    res.send(id + " " + message);
 });
 
 
