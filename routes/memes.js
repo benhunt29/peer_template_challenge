@@ -19,7 +19,7 @@ router.get('/:id?', function(req, res, next) {
       //var arrayMemes = JSON.parse(images);
       //var arrayMessages = JSON.parse(messages);
       var memesArray = [];
-      for (var i = 0;i<5;i++){
+      for (var i = 0;i<9;i++){
         memes[i].message = messages[i].message;
         console.log(memes[i].message, messages[i].message);
         memesArray[i] = memes[i];

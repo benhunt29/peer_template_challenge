@@ -3,10 +3,18 @@ extends layout
 block content
       each meme in memes
         -var url = meme.url
+        -var id = meme.id
         .meme
         img(
         src=url
         data-id=meme.id
         )
         p=meme.message
+        script(id='messageTemplate' type = 'text/x-handlebars-template')
+          //{{#each this}}
+          //p=comment
+          //{{/each}}
+          {{comment}}
+        div(id='newMessage'+id)
+          .messages
         include message_form.jade

@@ -11,49 +11,63 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /* GET users listing. */
 router.post('/', function(req, res, next) {
     var id = req.body.id;
-    var message = req.body.message;
+    var comment = req.body.comment;
+    var file = path.join(__dirname, '../models/messages.json');
+
+    fs.readFile(file, 'utf8', function (err, data) {
+        if (err) {
+            next(err);
+        } else {
+            var array = JSON.parse(data);
+            var messagesArray = array;
+
+
+            messagesArray.push({
+                "comment": comment,
+                "id": id
+            });
+            messagesArray = JSON.stringify(messagesArray);
+
+
+            fs.writeFile(file, messagesArray, 'utf8', function (err) {
+                if (err) {
+                    return console.log(err);
+                    next(err);
+                }
+                else {
+                    console.log("Wrote Data!");
+                    console.log(id,comment);
+                    res.json(id + " " + comment);
+                }
+            });
+        }
+
+    });
+});
+
+router.get('/:id?', function(req, res, next) {
+    var id = req.params.id;
     var file = path.join(__dirname,'../models/messages.json');
 
     fs.readFile(file,'utf8',function(err,data){
         if (err){
             next(err);
         }else{
-            var array = JSON.parse(data);
-            var messages = array;
-            messages.push({"messages":message,
-            "id":id});
-            messages = JSON.stringify(messages);
+            var array = [];
+            var messagesArray = JSON.parse(data);
+            //console.log(messagesArray);
 
-            fs.writeFile(file,messages,'utf8',function(err){
-                if(err) {
-                    return console.log(err);
-                    next(err);
-                }
-                else{
-                    console.log("Wrote Data!");
-                    res.json(id + " " + message);
+            messagesArray.forEach(function(elem){
+                if(elem.id == id && elem.comment){
+                    array.push(elem);
                 }
             });
+
+            res.send(array);
         }
 
     });
 
-    //console.log(req.body);
-    //var file1 = path.join(__dirname,'../models/images.json');
-    //var file2 = path.join(__dirname,'../models/messages.json');
-    //
-    //var memesArray = [];
-    //for (var i = 0;i<5;i++){
-    //    memes[i].message = messages[i].message;
-    //    console.log(memes[i].message, messages[i].message);
-    //    memesArray[i] = memes[i];
-    //}
-    //
-    //
-    ////}
-    //
-    //console.log(memes);
-    //res.render('memes.jade',{"memes": memesArray});
 });
 
 
