@@ -11,10 +11,8 @@ block content
         )
         p=meme.message
         script(id='messageTemplate' type = 'text/x-handlebars-template')
-          //{{#each this}}
-          //p=comment
-          //{{/each}}
-          {{comment}}
+          p
+            {{comment}}
         div(id='newMessage'+id)
-          .messages
+
         include message_form.jade

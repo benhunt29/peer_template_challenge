@@ -2,6 +2,7 @@
  * Created by allannielsen on 01/09/15.
  */
 var source;
+
 function getNewMessages(id){
     var messageCall = $.ajax({
         type: 'GET',
@@ -23,13 +24,15 @@ function getNewMessages(id){
 function appendNewMessage(message){
 
     console.log(message[0].id);
+    var newMessage = message[message.length-1];
 
     var template = Handlebars.compile(source);
+    $('#newMessage'+newMessage.id).append(template(newMessage,{"comment":newMessage.comment}));
 
-    message.forEach(function(elem,index){
-        console.log('#newMessage'+elem.id);
-        $('#newMessage'+elem.id).append(template(elem,{"comment":elem.comment}));
-    })
+    //message.forEach(function(elem,index){
+    //    console.log('#newMessage'+elem.id);
+    //    $('#newMessage'+elem.id).append(template(elem,{"comment":elem.comment}));
+    //})
 }
 
 
